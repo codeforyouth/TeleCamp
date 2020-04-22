@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ./docker          # Dockerfile 保存場所
+      dockerfile: Dockerfile     # Dockerfile ファイル名
+    image: tele-camp             # イメージ名
+    container_name: tele-camp    # コンテナ名
+    hostname: ${HOST}            # nginx-proxy を使うことを想定
+    ports:                       # ポート接続
+      - ${NODE_PORT}:3000
+    environment:
+      VIRTUAL_HOST: ${HOST}      # nginx-proxy を使うことを想定
+      VIRTUAL_PORT: ${NODE_PORT} # nginx-proxy を使うことを想定
+    volumes:                     # mount workdir
+      - ./app:/app
+    command: >
+      sh -c 'npm install &&
+             npm rebuild node-sass &&
+             npm run start-dev'
+    restart: always
+
+networks:
+  default:
+    external:
+      name: ${NETWORK}           # nginx-proxy を使うことを想定

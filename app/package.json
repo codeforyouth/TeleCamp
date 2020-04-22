@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "start-dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "node-sass-middleware": "^0.11.0",
+    "path": "^0.12.7",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}

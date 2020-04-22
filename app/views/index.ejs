@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TeleCamp</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+<body>
+
+<div id="app">
+
+  <header class="app-bar">
+    <div class="wrapper">
+      <h1>TeleCamp</h1>
+      <div class="user-info"
+           @click="showModal(1)">
+        <img :src="userIcon" class="user-icon">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-id">{{ userID }}</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="map"
+       class="map"
+       @mousedown.stop="touchstart($event)"
+       @mousemove.stop="touchmove($event)"
+       @mouseup.stop="touchend($event)"
+       @mouseleave.stop="touchend($event)">
+    <div class="map-content"
+         :style="mapContentStyle">
+      <div v-for="(row, r) in layout"
+           class="map-row">
+        <div v-for="(cell, c) in row"
+             class="map-cell"
+             :class="getCellClass(cell)"
+             @click.self="takeSeat(cell, r, c)">
+          <div class="user-icon"
+               v-if="isSeated(cell, r, c)">
+            <img v-lazy="getSeatedUserIcon(cell, r, c)">
+          </div>       
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="meet-popup"
+       class="meet-popup"
+       v-if="isMeetLinkAvailable">
+    <div class="wrapper">
+      <a :href="meetLink" target="_blank">このMTGに参加する</a>
+    </div>
+  </div>
+
+  <div id="modal"
+       class="modal"
+       v-show="isModalShown"
+       style="display: none;">
+    <div class="modal-bg"
+         @click.self="hideModal()">
+      <div class="modal-content">
+        <div class="wrapper">
+          <h1>{{ settingModalTitle }}</h1>
+          <div class="user-icon"
+               @click="changeUserIcon()">
+            <img :src="userIcon">
+            <span class="material-icons edit-icon">edit</span>
+          </div>
+          <dl class="user-info">
+            <dt>Username</dt>
+            <dd @click="changeUserName()">
+              <span class="user-name">{{ userName }}</span>
+              <span class="material-icons edit-icon">edit</span>
+            </dd>
+            <dt>UserID</dt>
+            <dd>
+              <span class="user-id">{{ userID }}</span>
+              <span class="material-icons delete-icon">delete_forever</span>
+            </dd>
+          </dl>
+          <div class="close-button"
+               @click="hideModal()"><span class="material-icons">close</span>Close</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- TODO: チャット -->
+  <div>
+    <input id="m" autocomplete="off" v-model="textInput"/>
+    <button v-on:click="sendMessage">Send</button>
+
+    <ul>
+      <li v-for="message in messages">{{ message }}</li>
+    </ul>    
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="js/util.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
