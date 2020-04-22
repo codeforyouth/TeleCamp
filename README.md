@@ -12,6 +12,12 @@
    production:  line 16 --> `npm start`
 
 
+## レイアウト
+
+部屋のレイアウトデータは、Google SpreadSheet で作成可能です。  
+https://drive.google.com/open?id=13unkBri3d6gXs1zbgglELgG50HspY4oZlyUanZlhRLQ
+
+
 ## nginx-proxy について
 
 現状（2020.04.23時点）では、nginx-proxy を使ってドメイン解決やってます。  
