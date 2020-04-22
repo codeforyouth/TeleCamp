@@ -4,7 +4,7 @@ NETWORK_NAME="telecamp_network"
 
 {
   # echo "HOST=telecamp.com" # ドメイン
-  echo "NODE_PORT=3030"
+  echo "NODE_PORT=8080"
   echo "NETWORK=$NETWORK_NAME"
 } > .env
 
