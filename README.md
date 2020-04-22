@@ -10,3 +10,11 @@
 4. Run docker-compose `docker-compose up`  
    development: line 16 --> `npm run start-dev`  
    production:  line 16 --> `npm start`
+
+
+## nginx-proxy について
+
+現状（2020.04.23時点）では、nginx-proxy を使ってドメイン解決やってます。  
+ローカルでやるときはこの設定をオフにする必要があるかも。
+
+https://github.com/nginx-proxy/nginx-proxy
