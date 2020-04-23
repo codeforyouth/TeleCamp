@@ -80,7 +80,7 @@ var app = new Vue({
         }.bind(this));
     },
     updateMyUserInfo() {
-      socket.emit('UPDATE_USER', { uid: this.userID, userName: this.userName, userIcon: this.userIcon });      
+      socket.emit('UPDATE_USER', { uid: this.userID, userName: this.userName, userIcon: this.userIcon });
     },
     initMap() {
       // TODO: 今は layout.js から取ってきてるので、API化したい。
@@ -96,9 +96,9 @@ var app = new Vue({
     initMapContentPosition() {
       var ww = document.getElementById("map").clientWidth;
       var wh = document.getElementById("map").clientHeight;
-      
+
       this.mapContentPos.x = (ww - this.mapContentWidth - 100.0)/2; // 50 = .map-content の padding
-      this.mapContentPos.y = (wh - this.mapContentHeight - 100.0)/2; // 50 = .map-content の padding      
+      this.mapContentPos.y = (wh - this.mapContentHeight - 100.0)/2; // 50 = .map-content の padding
 
       console.log("w: " + this.mapContentWidth + "\th:" + this.mapContentHeight + "\tww:" + ww + "\twh:" + wh + "\tpos.x:" + this.mapContentPos.x + "\tpos.y:" + this.mapContentPos.y);
 
@@ -143,7 +143,7 @@ var app = new Vue({
           let uid = this.seats[sid].seatedUserID;
           if(uid && this.users[uid]) {
             return true;
-          }          
+          }
         }
       }
       return false;
@@ -215,7 +215,7 @@ var app = new Vue({
     showModal(mode) {
       switch(mode) {
         case 0:
-          this.settingModalTitle = "Welcome to UbiCamp!";
+          this.settingModalTitle = "Welcome to TeleCamp!";
           break;
         case 1:
           this.settingModalTitle = "Settings";
@@ -279,7 +279,7 @@ var app = new Vue({
 
     socket.on('UPDATE_SEAT_STATUS', function(msg){
       console.log("received[UPDATE_SEAT_STATUS] ↓");
-      console.log(msg);      
+      console.log(msg);
       for(let i in msg){
         let flag = msg[i].flg;
         let seatedUserID = msg[i].uid;
