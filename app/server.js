@@ -92,6 +92,11 @@ app.get('/seats', function(req, res) {
   res.json(dummySeatsData);
 });
 
+app.get('/layout', function(req, res) {
+  console.log(dummyMapLayout);
+  res.json(dummyMapLayout);
+});
+
 // ↓ここからSocketIOの処理
 const io = require('socket.io')(server);
  
