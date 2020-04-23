@@ -11,7 +11,7 @@ var app = new Vue({
     userIcon: "img/user-icon-default.png",
     users: {},
     // map
-    layout: [],
+    layout: undefined,
     seats: {},
     mySeat: undefined,
     mapContentStyle: {
@@ -82,16 +82,25 @@ var app = new Vue({
     updateMyUserInfo() {
       socket.emit('UPDATE_USER', { uid: this.userID, userName: this.userName, userIcon: this.userIcon });
     },
-    initMap() {
-      // TODO: 今は layout.js から取ってきてるので、API化したい。
-      //       SpreadSheetからダイレクトに取ってこれると素晴らしい
-      this.layout = layout;
-      console.log(layout);
+    async initMap() {
+      await this.getMapLayout();
       if(this.layout != undefined) {
+        console.log(this.layout.length);
+        console.log(this.mapContentHeight);
+        console.log(this.mapContentWidth);
         this.mapContentStyle.height = this.mapContentHeight + 'px';
         this.mapContentStyle.width = this.mapContentWidth + 'px';
       }
       this.initMapContentPosition();
+    },
+    async getMapLayout() {
+      await axios
+        .get('/layout')
+        .then(function(response) {
+          console.log("getMapLayout() completed");
+          this.layout = Object.assign([], this.layout, response.data);
+          console.log(this.layout);
+        }.bind(this));
     },
     initMapContentPosition() {
       var ww = document.getElementById("map").clientWidth;
